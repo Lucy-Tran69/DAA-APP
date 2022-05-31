@@ -1,4 +1,4 @@
-import { KeyValue } from 'models/common';
+import { KeyValue } from 'types/common';
 import { TOKEN } from './constants';
 
 const setToken = (name: string, value: string) => {

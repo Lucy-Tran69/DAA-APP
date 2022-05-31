@@ -1,16 +1,30 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { Provider } from 'react-redux';
+import { store, history, persistor } from 'app/store';
+import { HistoryRouter as Router } from 'redux-first-history/rr6';
+import { PersistGate } from 'redux-persist/integration/react';
+import { ThemeProvider } from 'styled-components';
+import theme from 'utils/theme';
+import { GlobalStyles } from 'utils/global-styles';
+import App from 'App';
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
-root.render(
+ReactDOM.render(
   <React.StrictMode>
-    <App />
-  </React.StrictMode>
+    <Provider store={store}>
+      <Router history={history}>
+        <PersistGate loading={null} persistor={persistor}>
+          <GlobalStyles />
+          <ThemeProvider theme={theme}>
+            <App />
+          </ThemeProvider>
+        </PersistGate>
+      </Router>
+    </Provider>
+  </React.StrictMode>,
+  document.getElementById('root'),
 );
 
 // If you want to start measuring performance in your app, pass a function
